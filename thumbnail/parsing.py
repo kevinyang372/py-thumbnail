@@ -112,7 +112,7 @@ class Parsing:
              'callback': T_NEWLOGIC},
             {'src': self.S_LOGIC,
              'dst': self.S_LOGIC,
-             'condition': re.compile("[A-Za-z|=|]"),
+             'condition': re.compile("[A-Za-z|=|<|>|]"),
              'callback': T_ADDLOGIC},
             {'src': self.S_LOGIC,
              'dst': self.S_PARA,
