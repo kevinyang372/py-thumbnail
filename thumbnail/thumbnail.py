@@ -17,7 +17,7 @@ class pythumbnail:
             self.data = myfile.readlines()
 
         self.tab_to_space = 4
-        self.summary = {'class': 0, 'def': 0, 'for': 0, 'if': 0, 'while': 0}
+        self.summary = None
         self.tree = RuleGroup(None, 'File', -1)
         self.keys = ['class', 'def', 'for', 'if', 'elif','else:', 'while']
         self.silence = silence
@@ -71,3 +71,9 @@ class pythumbnail:
                 
                 group_parent[-2][1].child.append(r)
 
+    def show_summary(self):
+        if self.summary is None:
+            raise("Run scan function first to get summary information")
+        for i in self.summary:
+            print(i, ': ', self.summary[i])
+        return self.summary
