@@ -1,5 +1,4 @@
-# Py-thumbnail: Create Quick Thumbnail of Python Codes
-======================================================
+# Py-thumbnail: Quick Thumbnail Creator for Python
 
 What is Py-thumbnail?
 ---------------------
