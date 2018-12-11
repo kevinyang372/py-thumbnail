@@ -4,7 +4,7 @@ from rulegroup import RuleGroup
 
 class Parsing:
     
-    def __init__(self, input_s, rulegroup):
+    def __init__(self, input_s, rulegroup, silence = True):
 
         self.keys = ['class', 'def', 'for', 'if', 'elif','else:', 'while']
         self.logic = ['in', 'and', 'or', 'not']
@@ -19,6 +19,7 @@ class Parsing:
         self.state = self.S_NAME
         self.parameter = 0
         self.rulegroup = rulegroup
+        self.silence = silence
 
         FSM_MAP = (
             #  {'src':, 'dst':, 'condition':, 'callback': },
@@ -142,7 +143,8 @@ class Parsing:
     def run(self):
         for i in self.input:
             if not self.process_next(i):
-                print("Skipped")
+                if not self.silence:
+                    print("Skipped")
     
     def process_next(self, achar):
         self.current_char = achar
@@ -165,7 +167,8 @@ class Parsing:
         return False
 
     def update_state(self, new_state, callback):
-        print("{} -> {} : {}".format(self.current_char, self.state, new_state))
+        if not self.silence:
+            print("{} -> {} : {}".format(self.current_char, self.state, new_state))
         self.state = new_state
         callback(self)
 

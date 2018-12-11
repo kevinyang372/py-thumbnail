@@ -6,7 +6,7 @@ from parsing import *
 
 class pythumbnail:
 
-    def __init__(self, directory):
+    def __init__(self, directory, silence = True):
 
         self.filename = directory.split('/')[-1]
 
@@ -20,6 +20,7 @@ class pythumbnail:
         self.summary = {'class': 0, 'def': 0, 'for': 0, 'if': 0, 'while': 0}
         self.tree = RuleGroup(None, 'File', -1)
         self.keys = ['class', 'def', 'for', 'if', 'elif','else:', 'while']
+        self.silence = silence
 
     def __detect_group(self, string, group_level):
         k = string[group_level:].split()
@@ -63,7 +64,7 @@ class pythumbnail:
                     self.summary[check] += 1
                 
                 r = RuleGroup(group_parent[-1], check, group_level)
-                p = Parsing(i[group_level + len(check) + 1:], r)
+                p = Parsing(i[group_level + len(check) + 1:], r, self.silence)
                 p.run()
                 token_tree.append(r)
                 group_parent.append((group_level, r))
