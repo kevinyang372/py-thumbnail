@@ -6,7 +6,7 @@ from parsing import *
 
 class pythumbnail:
 
-    def __init__(self, directory, silence = True):
+    def __init__(self, directory, silence = True, tab_to_space = 4):
 
         self.filename = directory.split('/')[-1]
 
@@ -16,7 +16,7 @@ class pythumbnail:
         with open (directory, "r") as myfile:
             self.data = myfile.readlines()
 
-        self.tab_to_space = 4
+        self.tab_to_space = tab_to_space
         self.summary = None
         self.tree = RuleGroup(None, 'File', -1)
         self.keys = ['class', 'def', 'for', 'if', 'elif','else:', 'while']
