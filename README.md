@@ -1,9 +1,9 @@
-# Py-thumbnail
+# Pythumbnail
 
-What is Py-thumbnail?
+What is Pythumbnail?
 ---------------------
 
-Py-thumbnail is a quick thumbnail creator for python codes. You can get an overview of the available functions, for/while loops and if conditions without even running the code.
+Pythumbnail is a quick thumbnail creator for python codes. You can get an overview of the available functions, for/while loops and if conditions without even running the code.
 
 Suppose you have the following python file:
 
@@ -23,12 +23,12 @@ class someclass:
 ```
 
 
-Here is a small example to show what Py-thumbnail could do (Python 3):
+Here is a small example to show what Pythumbnail could do (Python 3):
 
 ```python
-from thumbnail import pythumbnail
+import pythumbnail
 
-file = pythumbnail('some_file.py')
+file = pythumbnail.read_file('some_file.py')
 file.scan()
 print(file.tree)
 ```
@@ -45,3 +45,57 @@ The output will look like:
         'def do_something_else(self,num)'
             'while[self.a,100] LOGIC: [<]'
 ```
+
+Quick Start
+-----------
+
+To install Pythumbnail, you need python version 3.6.0 or above. Pythumbnail could be installed from pypi:
+
+    $ python3 -m pip install pythumbnail
+
+Running Pythumbnail:
+
+```python
+    import pythumbnail
+```
+
+Usage
+-----
+
+Read Documents (This step is necessary to initialize pythumbnail object)
+
+```python
+    import pythumbnail
+
+    file = pythumbnail.read_file('some_file.py') # reads in a new python file
+    file = pythumbnail.read_file('some_file.py', silence = False) # turns on logging mode (will output all state changes)
+    file = pythumbnail.read_file('some_file.py', tab_to_space = 2) # customizes how many spaces is one tab equal to (default = 4)
+```
+
+Scan The Document
+
+```python
+    file.scan()
+```
+
+Output Thumbnail (Document needs to be scanned first)
+
+```python
+    print(file.tree)
+```
+
+Show Summary (Document needs to be scanned first)
+
+```python
+    file.show_summary()
+```
+
+Contributing
+------------
+
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+
+License
+-------
+
+[Apache License 2.0](http://www.apache.org/licenses/)
