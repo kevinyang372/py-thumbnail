@@ -31,9 +31,12 @@ class pythumbnail:
 
     def __check_group_level(self, string):
         level = 0 
+        tab_level = 0 
         while level < len(string) and string[level] == ' ' or string[level] == '\t':
+            if string[level] == '\t':
+                tab_level += 1
             level += 1
-        return level
+        return level + (self.tab_to_space - 1) * tab_level
 
     def scan(self):
         group_level = 0

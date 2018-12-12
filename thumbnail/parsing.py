@@ -10,6 +10,7 @@ class Parsing:
         self.logic = ['in', 'and', 'or', 'not']
 
         self.S_NAME = "STATE: NAME"
+        self.S_STRING = "STATE: STRING"
         self.S_PARA = "STATE: DEFINE PARAMETERS"
         self.S_COMMA = "STATE: NEW PARAMETERS"
         self.S_LOGIC = "STATE: LOGICAL OPERATORS"
@@ -57,7 +58,19 @@ class Parsing:
             #  {'src':, 'dst':, 'condition':, 'callback': },
             {'src': self.S_NAME,
              'dst': self.S_NAME,
-             'condition': re.compile("[A-Za-z|+|-|_|[|\]|(|\)|'|\d]"),
+             'condition': re.compile("[A-Za-z|+|-|_|[|\]|(|\)|\d]"),
+             'callback': T_APPEND_NAME},
+            {'src': self.S_NAME,
+             'dst': self.S_STRING,
+             'condition': re.compile("\"|\'"),
+             'callback': T_APPEND_NAME},
+            {'src': self.S_STRING,
+             'dst': self.S_STRING,
+             'condition': re.compile("[A-Za-z|+|-|_|[|\]|(|\)| |\d]"),
+             'callback': T_APPEND_NAME},
+            {'src': self.S_STRING,
+             'dst': self.S_NAME,
+             'condition': re.compile("\"|\'"),
              'callback': T_APPEND_NAME},
             {'src': self.S_NAME,
              'dst': self.S_COMMA,
@@ -100,7 +113,19 @@ class Parsing:
         IFWHILE_MAP = (
             {'src': self.S_NAME,
              'dst': self.S_NAME,
-             'condition': re.compile("[A-Za-z|+|-|_|,|.|[|\]|(|\)|'|\d]"),
+             'condition': re.compile("[A-Za-z|+|-|_|,|.|[|\]|(|\)|\d]"),
+             'callback': T_ADDPARA},
+            {'src': self.S_NAME,
+             'dst': self.S_STRING,
+             'condition': re.compile("\"|\'"),
+             'callback': T_ADDPARA},
+            {'src': self.S_STRING,
+             'dst': self.S_STRING,
+             'condition': re.compile("[A-Za-z|+|-|_|[|\]|(|\)| |\d]"),
+             'callback': T_ADDPARA},
+            {'src': self.S_STRING,
+             'dst': self.S_NAME,
+             'condition': re.compile("\"|\'"),
              'callback': T_ADDPARA},
             {'src': self.S_NAME,
              'dst': self.S_END_RULE,
