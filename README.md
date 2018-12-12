@@ -56,7 +56,7 @@ To install Pythumbnail, you need python version 3.6.0 or above. Pythumbnail coul
 Running Pythumbnail:
 
 ```python
-    import pythumbnail
+import pythumbnail
 ```
 
 Usage
@@ -65,29 +65,29 @@ Usage
 Read Documents (This step is necessary to initialize pythumbnail object)
 
 ```python
-    import pythumbnail
+import pythumbnail
 
-    file = pythumbnail.read_file('some_file.py') # reads in a new python file
-    file = pythumbnail.read_file('some_file.py', silence = False) # turns on logging mode (will output all state changes)
-    file = pythumbnail.read_file('some_file.py', tab_to_space = 2) # customizes how many spaces is one tab equal to (default = 4)
+file = pythumbnail.read_file('some_file.py') # reads in a new python file
+file = pythumbnail.read_file('some_file.py', silence = False) # turns on logging mode (will output all state changes)
+file = pythumbnail.read_file('some_file.py', tab_to_space = 2) # customizes how many spaces is one tab equal to (default = 4)
 ```
 
 Scan The Document
 
 ```python
-    file.scan()
+file.scan()
 ```
 
 Output Thumbnail (Document needs to be scanned first)
 
 ```python
-    print(file.tree)
+print(file.tree)
 ```
 
 Show Summary (Document needs to be scanned first)
 
 ```python
-    file.show_summary()
+file.show_summary()
 ```
 
 Contributing
