@@ -1,4 +1,4 @@
-# Py-thumbnail: Quick Thumbnail Creator for Python
+# Py-thumbnail
 
 What is Py-thumbnail?
 ---------------------
@@ -36,12 +36,12 @@ print(file.tree)
 The output will look like:
 
 ```python
-File some_file.py()
-    class someclass()
-        def __init__(self)
-        def do_something(self)
-            for i in range(len(self.a))
-                if[i,2] LOGIC: [==]
-        def do_something_else(self,num)
-            while[self.a,100] LOGIC: [<]
+'File some_file.py()'
+    'class someclass()'
+        'def __init__(self)'
+        'def do_something(self)'
+            'for i in range(len(self.a))'
+                'if[i,2] LOGIC: [==]'
+        'def do_something_else(self,num)'
+            'while[self.a,100] LOGIC: [<]'
 ```

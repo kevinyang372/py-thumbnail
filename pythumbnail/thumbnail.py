@@ -1,10 +1,8 @@
-import numpy as np
-import pandas as pd
 import re
-from rulegroup import RuleGroup
-from parsing import *
+from .rulegroup import RuleGroup
+from .parsing import Parsing
 
-class pythumbnail:
+class thumbnail:
 
     def __init__(self, directory, silence = True, tab_to_space = 4):
 

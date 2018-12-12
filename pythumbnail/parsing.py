@@ -1,6 +1,5 @@
 import re
-import numpy as np
-from rulegroup import RuleGroup
+from .rulegroup import RuleGroup
 
 class Parsing:
     
