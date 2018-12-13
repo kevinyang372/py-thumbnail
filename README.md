@@ -70,6 +70,7 @@ import pythumbnail
 file = pythumbnail.read_file('some_file.py') # reads in a new python file
 file = pythumbnail.read_file('some_file.py', silence = False) # turns on logging mode (will output all state changes)
 file = pythumbnail.read_file('some_file.py', tab_to_space = 2) # customizes how many spaces is one tab equal to (default = 4)
+file = pythumbnail.read_file('some_file.py', keys = ['for']) # customizes the keywords to capture (default: 'class', 'def', 'for', 'if', 'elif','else:', 'while')
 ```
 
 Scan The Document
@@ -88,6 +89,12 @@ Show Summary (Document needs to be scanned first)
 
 ```python
 file.show_summary()
+```
+
+Show Entire Text File (Document needs to be scanned first)
+
+```python
+file.show_text()
 ```
 
 Contributing

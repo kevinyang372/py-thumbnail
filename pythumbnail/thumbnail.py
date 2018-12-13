@@ -4,7 +4,7 @@ from .parsing import Parsing
 
 class thumbnail:
 
-    def __init__(self, directory, silence = True, tab_to_space = 4):
+    def __init__(self, directory, silence, tab_to_space, keys):
 
         self.filename = directory.split('/')[-1]
 
@@ -16,8 +16,9 @@ class thumbnail:
 
         self.tab_to_space = tab_to_space
         self.summary = None
-        self.tree = RuleGroup(None, 'File', -1)
+        self.tree = RuleGroup(None, 'File', -1, True)
         self.keys = ['class', 'def', 'for', 'if', 'elif','else:', 'while']
+        self.print_keys = keys
         self.silence = silence
 
     def __detect_group(self, string, group_level):
@@ -38,7 +39,7 @@ class thumbnail:
 
     def scan(self):
         group_level = 0
-        self.tree = RuleGroup(None, 'File', -1)
+        self.tree = RuleGroup(None, 'File', -1, True)
         self.tree.functionname = self.filename
         self.summary = {'class': 0, 'def': 0, 'for': 0, 'if': 0, 'while': 0}
         
@@ -64,7 +65,7 @@ class thumbnail:
                 if check in self.summary:
                     self.summary[check] += 1
                 
-                r = RuleGroup(group_parent[-1], check, group_level)
+                r = RuleGroup(group_parent[-1], check, group_level, check in self.print_keys)
                 p = Parsing(i[group_level + len(check) + 1:], r, self.silence)
                 p.run()
                 token_tree.append(r)
@@ -78,3 +79,6 @@ class thumbnail:
         for i in self.summary:
             print(i, ': ', self.summary[i])
         return self.summary
+
+    def show_text(self):
+        return self.data
