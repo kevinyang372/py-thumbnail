@@ -132,15 +132,15 @@ class Parsing:
              'callback': T_TRANSIT},
             {'src': self.S_NAME,
              'dst': self.S_LOGIC,
-             'condition': re.compile("\ "),
+             'condition': re.compile("[<|>|=| |]"),
              'callback': T_NEWLOGIC},
             {'src': self.S_LOGIC,
              'dst': self.S_LOGIC,
-             'condition': re.compile("[A-Za-z|=|<|>|]"),
+             'condition': re.compile("[=|<|>|]"),
              'callback': T_ADDLOGIC},
             {'src': self.S_LOGIC,
              'dst': self.S_PARA,
-             'condition': re.compile("\ "),
+             'condition': re.compile("[A-Za-z| |]"),
              'callback': T_NEWPARA},
             {'src': self.S_PARA,
              'dst': self.S_PARA,
@@ -209,6 +209,8 @@ def T_ADDLOGIC(fsm_obj):
 def T_NEWLOGIC(fsm_obj):
     fsm_obj.rulegroup.num_logic += 1
     fsm_obj.rulegroup.logic.append('')
+    if fsm_obj.current_char != ' ':
+        fsm_obj.rulegroup.logic[fsm_obj.rulegroup.num_logic] += fsm_obj.current_char
     
 def T_TRANSIT(fsm_obj):
     pass
@@ -219,3 +221,5 @@ def T_ADDPARA(fsm_obj):
 def T_NEWPARA(fsm_obj):
     fsm_obj.rulegroup.params.append('')
     fsm_obj.parameter += 1
+    if fsm_obj.current_char != ' ':
+        fsm_obj.rulegroup.params[fsm_obj.parameter] += fsm_obj.current_char

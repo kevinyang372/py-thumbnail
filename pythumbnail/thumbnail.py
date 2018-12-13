@@ -4,7 +4,7 @@ from .parsing import Parsing
 
 class thumbnail:
 
-    def __init__(self, directory, silence, tab_to_space, keys):
+    def __init__(self, directory, silence, keys):
 
         self.filename = directory.split('/')[-1]
 
@@ -14,10 +14,9 @@ class thumbnail:
         with open (directory, "r") as myfile:
             self.data = myfile.readlines()
 
-        self.tab_to_space = tab_to_space
         self.summary = None
         self.tree = RuleGroup(None, 'File', -1, True)
-        self.keys = ['class', 'def', 'for', 'if', 'elif','else:', 'while']
+        self.keys = ['class', 'def', 'for', 'if', 'elif', 'else:', 'while']
         self.print_keys = keys
         self.silence = silence
 
@@ -30,12 +29,9 @@ class thumbnail:
 
     def __check_group_level(self, string):
         level = 0 
-        tab_level = 0 
         while level < len(string) and string[level] == ' ' or string[level] == '\t':
-            if string[level] == '\t':
-                tab_level += 1
             level += 1
-        return level + (self.tab_to_space - 1) * tab_level
+        return level
 
     def scan(self):
         group_level = 0
@@ -72,6 +68,20 @@ class thumbnail:
                 group_parent.append((group_level, r))
                 
                 group_parent[-2][1].child.append(r)
+
+    def search(self, name, start = None):
+
+        if start is None:
+            start = self.tree
+
+        result = None
+
+        for i in start.child:
+            if i.functionname == name:
+                return i
+            result = self.search(name, start = i)
+
+        return result
 
     def show_summary(self):
         if self.summary is None:

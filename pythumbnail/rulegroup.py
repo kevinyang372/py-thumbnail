@@ -27,4 +27,4 @@ class RuleGroup:
         return ret
 
     def __repr__(self):
-        return '<tree node representation>'
+        return '<pythumbnail node>: ' + self.name
