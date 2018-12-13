@@ -68,7 +68,7 @@ Read Documents (This step is necessary to initialize pythumbnail object)
 import pythumbnail
 
 file = pythumbnail.read_file('some_file.py') # reads in a new python file
-file = pythumbnail.read_file('some_file.py', silence = False) # turns on logging mode (will output all state changes)
+file = pythumbnail.read_file('some_file.py', silent = False) # turns on logging mode (will output all state changes)
 file = pythumbnail.read_file('some_file.py', keys = ['for']) # customizes the keywords to capture (default: 'class', 'def', 'for', 'if', 'elif','else:', 'while')
 ```
 
@@ -84,7 +84,7 @@ Output Thumbnail (Document needs to be scanned first)
 print(file.tree)
 ```
 
-Structure of A Specific Function
+Structure of a Specific Function
 
 ```python
 b = file.search('some_name')
