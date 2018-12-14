@@ -1,13 +1,16 @@
 import re
 from .rulegroup import RuleGroup
 
+# Class for parsing strings
 class Parsing:
     
     def __init__(self, input_s, rulegroup, silence = True):
 
+        # define keyword libraries
         self.keys = ['class', 'def', 'for', 'if', 'elif','else:', 'while']
         self.logic = ['in', 'and', 'or', 'not']
 
+        # define the states in finite state machine
         self.S_NAME = "STATE: NAME"
         self.S_STRING = "STATE: STRING"
         self.S_PARA = "STATE: DEFINE PARAMETERS"
@@ -21,8 +24,8 @@ class Parsing:
         self.rulegroup = rulegroup
         self.silence = silence
 
+        # FSM (Finite State Machine) map for functions (def)
         FSM_MAP = (
-            #  {'src':, 'dst':, 'condition':, 'callback': },
             {'src': self.S_NAME,
              'dst': self.S_NAME,
              'condition': re.compile("[A-Za-z|+|-|_|[|\]|'|\d]"),
@@ -53,8 +56,8 @@ class Parsing:
              'callback': T_TRANSIT}
         )
 
+        # FSM map for for loops (for)
         FOR_MAP = (
-            #  {'src':, 'dst':, 'condition':, 'callback': },
             {'src': self.S_NAME,
              'dst': self.S_NAME,
              'condition': re.compile("[A-Za-z|+|-|_|[|\]|(|\)|\d]"),
@@ -109,6 +112,7 @@ class Parsing:
              'callback': T_TRANSIT}
         )
 
+        # FSM map for if and while statements
         IFWHILE_MAP = (
             {'src': self.S_NAME,
              'dst': self.S_NAME,
@@ -164,12 +168,14 @@ class Parsing:
             self.map = FOR_MAP
         self.current_char = ''
     
+    # go through all elements in the string
     def run(self):
         for i in self.input:
             if not self.process_next(i):
                 if not self.silence:
                     print("Skipped")
-    
+
+    # process individal characters
     def process_next(self, achar):
         self.current_char = achar
         state = self.state
@@ -183,6 +189,7 @@ class Parsing:
                     return True
         return False
 
+    # evaluate whether the character evokes state change
     def iterate_re_evaluators(self, achar, transition):
         condition = transition['condition']
         if condition.match(achar):
@@ -190,13 +197,14 @@ class Parsing:
             return True
         return False
 
+    # print out state update
     def update_state(self, new_state, callback):
         if not self.silence:
             print("{} -> {} : {}".format(self.current_char, self.state, new_state))
         self.state = new_state
         callback(self)
 
-
+# define transition functions for FSM
 def T_APPEND_NAME(fsm_obj):
     fsm_obj.rulegroup.functionname += fsm_obj.current_char
 

@@ -10,6 +10,7 @@ class RuleGroup:
         self.group_level = group_level
         self.visible = visible
     
+    # print out the node tree
     def __str__(self, level=0):
         if self.visible:
             if self.name == 'for':
