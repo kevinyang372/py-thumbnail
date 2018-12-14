@@ -2,4 +2,6 @@
 from .thumbnail import thumbnail
 
 def read_file(directory, silent = True, keys = ['class', 'def', 'for', 'if', 'elif','else:', 'while']):
-    return thumbnail(directory, silent, keys)
+    snapshot = thumbnail(directory, silent, keys)
+    snapshot.scan()
+    return snapshot

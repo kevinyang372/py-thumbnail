@@ -72,32 +72,26 @@ file = pythumbnail.read_file('some_file.py', silent = False) # turns on logging 
 file = pythumbnail.read_file('some_file.py', keys = ['for']) # customizes the keywords to capture (default: 'class', 'def', 'for', 'if', 'elif','else:', 'while')
 ```
 
-Scan The Document
-
-```python
-file.scan()
-```
-
-Output Thumbnail (Document needs to be scanned first)
+Output Thumbnail
 
 ```python
 print(file.tree)
 ```
 
-Structure of a Specific Function
+Show Thumbnail of a Specific Function
 
 ```python
 b = file.search('some_name')
 print(b)
 ```
 
-Show Summary (Document needs to be scanned first)
+Show Summary of the File
 
 ```python
 file.show_summary()
 ```
 
-Show Entire Text File (Document needs to be scanned first)
+Show Entire Text File
 
 ```python
 file.show_text()
