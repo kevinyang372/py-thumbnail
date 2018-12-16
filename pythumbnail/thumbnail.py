@@ -2,7 +2,11 @@
 Thumbnail Class
 =============
 
-Thumbnail class in pythumbnail handles higher level parsing as it tracks the relationship between different function groups (For example, if the function belongs to a class or if the for loop is nested under another for loop) with indentation. It also provides functions such as search and show_summary that allows users to get more specific information
+Thumbnail class in pythumbnail handles higher level parsing as it tracks 
+the relationship between different function groups (For example, if the 
+function belongs to a class or if the for loop is nested under another 
+for loop) with indentation. It also provides functions such as search and 
+show_summary that allows users to get more specific information
 
 """
 

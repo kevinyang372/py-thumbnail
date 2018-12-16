@@ -2,7 +2,9 @@
 RuleGroup Class
 =============
 
-RuleGroup class in pythumbnail represents each node in the parsing tree. It contains information about the node (name, functionname, logic...) as well as its successor and predecessor.
+RuleGroup class in pythumbnail represents each node in the parsing tree. 
+It contains information about the node (name, functionname, logic...) 
+as well as its successor and predecessor.
 
 """
 

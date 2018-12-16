@@ -2,7 +2,10 @@
 Parsing Class
 =============
 
-Parsing class in pythumbnail uses finite state machine (FSM) to further break down the input into multiple key parts including name of the function, parameters and logical relationship between parameters (==/</>) if the input is if or while statement
+Parsing class in pythumbnail uses finite state machine (FSM)
+to further break down the input into multiple key parts including
+name of the function, parameters and logical relationship between 
+parameters (==/</>) if the input is if or while statement
 
 """
 
@@ -41,7 +44,7 @@ class Parsing:
         dictionary including all the rules for parsing
     current_char: string
         current character being processed
-        
+
     
     Methods:
     -------
