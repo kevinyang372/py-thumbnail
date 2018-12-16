@@ -1,9 +1,61 @@
+"""
+Thumbnail Class
+=============
+
+Thumbnail class in pythumbnail handles higher level parsing as it tracks the relationship between different function groups (For example, if the function belongs to a class or if the for loop is nested under another for loop) with indentation. It also provides functions such as search and show_summary that allows users to get more specific information
+
+"""
+
 import re
 from .rulegroup import RuleGroup
 from .parsing import Parsing
 
-# high level scanning and searching
 class thumbnail:
+
+    """
+    A class for high level parsing
+
+    Attributes:
+    ----------
+
+    filename: string
+        name of the file
+    data: list
+        A list of strings containing the content of input python file
+    summary: dict
+        A dictionary counting the number of occurrence of each function group
+    tree: RuleGroup
+        Root node of the parsed tree
+    keys: list
+        A list of strings including the keywords of function groups
+    print_keys: list
+        User applied filter on the keywords visible (default = keys)
+    silence: boolean
+        if set to true, output logging
+
+
+    Methods:
+    --------
+    
+    __detect_group(string, group_level)
+        detect whether the first word in the string is within dictionary
+
+    __check_group_level(string, group_level)
+        return the number of indentation in the string
+
+    scan()
+        iterate through the entire document and return the complete parsing tree
+
+    search(name, start=None)
+        return the node with functionname equals name
+
+    show_summary()
+        return the summary dictionary
+
+    show_text()
+        return the data list
+
+    """
 
     def __init__(self, directory, silence, keys):
 
@@ -21,7 +73,7 @@ class thumbnail:
         self.print_keys = keys
         self.silence = silence
 
-    # detect whether the first element of the string is within dictionary
+    # detect whether the first word in the string is within dictionary
     def __detect_group(self, string, group_level):
         k = string[group_level:].split()
         if not len(k) == 0 and k[0] in self.keys:

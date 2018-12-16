@@ -1,13 +1,67 @@
+"""
+Parsing Class
+=============
+
+Parsing class in pythumbnail uses finite state machine (FSM) to further break down the input into multiple key parts including name of the function, parameters and logical relationship between parameters (==/</>) if the input is if or while statement
+
+"""
+
+
 import re
 from .rulegroup import RuleGroup
 
-# Class for parsing strings
 class Parsing:
+
+    """
+    A class for further parsing information in each line
+
+    Attributes:
+    ----------
+
+    (FSM States)
+    S_NAME: defining name of the function
+    S_STRING: inputing information into a string (spaces do not cause state changes)
+    S_PARA: defining parameters of the function
+    S_COMMA: adding new parameters
+    S_LOGIC: defining logical relationships
+    S_END_RULE: end of sentences
     
+    (Other variables)
+    input: string
+        the input string
+    state: string
+        current stage 
+    parameter: int
+        number of parameters
+    rulegroup: rulegroup
+        object that carries information about the input
+    silence: boolean
+        if set to true, output logging
+    map: dict
+        dictionary including all the rules for parsing
+    current_char: string
+        current character being processed
+        
+    
+    Methods:
+    -------
+
+    run()
+        iterate through each character in the input string
+
+    process_next(achar)
+        check the current state. Exit if the state is S_END_RULE
+
+    iterate_re_evaluators(achar, transition)
+        evaluate if the given conditions match any case defined in FSM map
+
+    update_case(new_state, callback)
+        call the transition function and update current state according to rules defined in map
+
+    """
     def __init__(self, input_s, rulegroup, silence = True):
 
         # define keyword libraries
-        self.keys = ['class', 'def', 'for', 'if', 'elif','else:', 'while']
         self.logic = ['in', 'and', 'or', 'not']
 
         # define the states in finite state machine
@@ -162,7 +216,7 @@ class Parsing:
 
         if rulegroup.name in ['class', 'def']:
             self.map = FSM_MAP
-        elif rulegroup.name in['if', 'while']:
+        elif rulegroup.name in ['if', 'while']:
             self.map = IFWHILE_MAP
         else:
             self.map = FOR_MAP
@@ -175,7 +229,7 @@ class Parsing:
                 if not self.silence:
                     print("Skipped")
 
-    # process individal characters
+    # process each individal character
     def process_next(self, achar):
         self.current_char = achar
         state = self.state
@@ -204,7 +258,34 @@ class Parsing:
         self.state = new_state
         callback(self)
 
-# define transition functions for FSM
+"""
+
+FSM Transitions:
+----------------
+
+T_APPEND_NAME(fsm_obj):
+    append the current character to functionname string
+
+T_APPEND_NEW_NAME(fsm_obj):
+    create an empty new functionname and concatenate it with the functionname string using 'and'
+
+T_ADDLOGIC(fsm_obj):
+    append the current character to logic string
+
+T_NEWLOGIC(fsm_obj):
+    create a new logic string
+
+T_TRANSIT(fsm_obj):
+    no transition function (pass)
+
+T_ADDPARA(fsm_obj):
+    append the current character to parameter string
+
+T_NEWPARA(fsm_obj):
+    create a new parameter string
+
+"""
+
 def T_APPEND_NAME(fsm_obj):
     fsm_obj.rulegroup.functionname += fsm_obj.current_char
 
@@ -217,6 +298,7 @@ def T_ADDLOGIC(fsm_obj):
 def T_NEWLOGIC(fsm_obj):
     fsm_obj.rulegroup.num_logic += 1
     fsm_obj.rulegroup.logic.append('')
+    # skip appending if the character is space
     if fsm_obj.current_char != ' ':
         fsm_obj.rulegroup.logic[fsm_obj.rulegroup.num_logic] += fsm_obj.current_char
     
@@ -229,5 +311,6 @@ def T_ADDPARA(fsm_obj):
 def T_NEWPARA(fsm_obj):
     fsm_obj.rulegroup.params.append('')
     fsm_obj.parameter += 1
+    # skip appending if the character is space
     if fsm_obj.current_char != ' ':
         fsm_obj.rulegroup.params[fsm_obj.parameter] += fsm_obj.current_char

@@ -1,4 +1,50 @@
+"""
+RuleGroup Class
+=============
+
+RuleGroup class in pythumbnail represents each node in the parsing tree. It contains information about the node (name, functionname, logic...) as well as its successor and predecessor.
+
+"""
+
 class RuleGroup:
+
+    """
+    A class representing a single node in parsing tree
+
+    Attributes:
+    ----------
+
+    parent: RuleGroup
+        predecessor
+    child: list
+        successors
+    name: string
+        function group category (e.g. def)
+    functionname: string
+        name of the function group
+    params: list
+        list of parameters
+    logic: list
+        list of logical operators
+    num_logic: int
+        number of logical operators - 1
+    group_level: int
+        number of indentations
+    visible: boolean
+        If True, the node will be printed in the tree
+
+    
+    Methods:
+    --------
+
+    __str__(level=0)
+        print out the information about the node and its children recursively
+
+    __repr__()
+        define string reputation of the class
+
+    """
+
     def __init__(self, parent, name, group_level, visible):
         self.parent = parent
         self.child = []
@@ -28,4 +74,4 @@ class RuleGroup:
         return ret
 
     def __repr__(self):
-        return '<pythumbnail node>: ' + self.name
+        return '<pythumbnail node>: ' + self.functionname
