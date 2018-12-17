@@ -59,43 +59,10 @@ Running Pythumbnail:
 import pythumbnail
 ```
 
-Usage
------
+Documentation
+-------------
 
-Read Documents (This step is necessary to initialize pythumbnail object)
-
-```python
-import pythumbnail
-
-file = pythumbnail.read_file('some_file.py') # reads in a new python file
-file = pythumbnail.read_file('some_file.py', silent = False) # turns on logging mode (will output all state changes)
-file = pythumbnail.read_file('some_file.py', keys = ['for']) # customizes the keywords to capture (default: 'class', 'def', 'for', 'if', 'elif','else:', 'while')
-```
-
-Output Thumbnail
-
-```python
-print(file.tree)
-```
-
-Show Thumbnail of a Specific Function
-
-```python
-b = file.search('some_name')
-print(b)
-```
-
-Show Summary of the File
-
-```python
-file.show_summary()
-```
-
-Show Entire Text File
-
-```python
-file.show_text()
-```
+Full documentation is available [here](https://kevinyang372.github.io/py-thumbnail/)
 
 Contributing
 ------------
