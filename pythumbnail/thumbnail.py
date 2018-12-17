@@ -65,8 +65,8 @@ class thumbnail:
 
         self.filename = directory.split('/')[-1]
 
-        if self.filename == '':
-            raise "Please input directory in the correct format"
+        if self.filename == '' or self.filename.split('.')[1] != 'py':
+            raise "Input is not Python file"
 
         with open (directory, "r") as myfile:
             self.data = myfile.readlines()
