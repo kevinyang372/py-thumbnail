@@ -8,7 +8,7 @@
   
   
   <link rel="shortcut icon" href="../img/favicon.ico">
-  <title>How it Works: - Pythumbnail</title>
+  <title>How it Works - Pythumbnail</title>
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
 
   <link rel="stylesheet" href="../css/theme.css" type="text/css" />
@@ -17,7 +17,7 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "How it Works:";
+    var mkdocs_page_name = "How it Works";
     var mkdocs_page_input_path = "how_it_works.md";
     var mkdocs_page_url = null;
   </script>
@@ -58,10 +58,10 @@
                 </li>
                 <li class=" current">
                     
-    <a class="current" href="./">How it Works:</a>
+    <a class="current" href="./">How it Works</a>
     <ul class="subnav">
             
-    <li class="toctree-l3"><a href="#how-it-works">How it Works:</a></li>
+    <li class="toctree-l3"><a href="#how-it-works">How it Works</a></li>
     
         <ul>
         
@@ -113,7 +113,7 @@
         
       
     
-    <li>How it Works:</li>
+    <li>How it Works</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -123,7 +123,7 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="how-it-works">How it Works:</h1>
+                <h1 id="how-it-works">How it Works</h1>
 <p>Pythumbnail parses python files on two levels. On the higher level, it detects the key identifiers at the beginning of the line (e.g. def, for, if...). It also keeps track of the number of indentations to construct the inheritance relationship between different lines. When the key identifier is found, it passes the string of that line to the lower level parser, which utilizes finite state machine to further divide it into function group names, logical operators and parameters.</p>
 <div class="admonition tip">
 <p class="admonition-title">Finite State Machine</p>
@@ -137,6 +137,7 @@
 <em>S_PARA</em>: &nbsp;&nbsp;defining parameters of the function<br>
 <em>S_COMMA</em>: &nbsp;&nbsp;adding new parameters<br>
 <em>S_END_RULE</em>: &nbsp;&nbsp;end of sentences</p>
+<p>There are four different states in a function (def) statement. The sequential logic starts with stating the name of the function (S_NAME). Then the left parenthesis marks the end of function name state and start of parameter definition state (S_PARA). Individual parameters are separated by commas (S_COMMA). The sequential logic ends with a right parenthesis (S_END_RULE).</p>
 <h2 id="fsm-for-for-loops">FSM for For Loops</h2>
 <p><img alt="Finite State Machine for FOR" src="../img/For_FSM.png" /></p>
 <p><strong> FSM States: </strong></p>
@@ -146,6 +147,7 @@
 <em>S_LOGIC</em>: &nbsp;&nbsp;defining logical relationships<br>
 <em>S_STRING</em>: &nbsp;&nbsp;inputing information into a string (spaces do not cause state changes)<br>
 <em>S_END_RULE</em>: &nbsp;&nbsp;end of sentences</p>
+<p>For loop has six different states. The sequential logic starts with defining the name of variables (S_NAME). Individual variables are separated by commas (S_COMMA). " in " marks the logical operator (S_LOGIC) followed by an iterable (S_PARA). The sequential logic ends with a colon (S_END_RULE). Note that an additional string stage (S_STRING) is defined here to avoid triggering the mis-transition from S_NAME to S_LOGIC with spaces in a string.</p>
 <h2 id="fsm-for-whileif-statements">FSM for While/If Statements</h2>
 <p><img alt="Finite State Machine for FOR" src="../img/WhileIf_FSM.png" /></p>
 <p><strong> FSM States: </strong></p>
@@ -155,6 +157,7 @@
 <em>S_LOGIC</em>: &nbsp;&nbsp;defining logical relationships<br>
 <em>S_STRING</em>: &nbsp;&nbsp;inputing information into a string (spaces do not cause state changes)<br>
 <em>S_END_RULE</em>: &nbsp;&nbsp;end of sentences</p>
+<p>While/If statement has six different states. The sequential logic starts with defining the name of variables (S_NAME). The difference with for loop here is while/if could end directly with S_NAME when the variable is a boolean. Individual variables are separated by commas (S_COMMA). "</>/=/in/not/and/or..." marks the logical operator (S_LOGIC) followed by another variable(S_PARA). The sequential logic ends with a colon (S_END_RULE). Note that an additional string stage (S_STRING) is defined here to avoid triggering the mis-transition from S_NAME to S_LOGIC with spaces in a string.</p>
               
             </div>
           </div>
