@@ -14,7 +14,7 @@ except FileNotFoundError:
     long_description = DESCRIPTION
 
 setup(name='pythumbnail',
-      version='0.0.7',
+      version='0.0.9',
       description="A quick thumbnail creator for python codes",
       long_description=long_description,
       long_description_content_type='text/markdown',

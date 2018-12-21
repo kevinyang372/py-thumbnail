@@ -42,7 +42,6 @@ Here is a small example to show what Pythumbnail could do (Python 3):
 import pythumbnail
 
 file = pythumbnail.read_file('some_file.py')
-file.scan()
 print(file.tree)
 ```
 
