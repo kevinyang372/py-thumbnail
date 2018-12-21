@@ -71,6 +71,8 @@
         
             <li><a class="toctree-l4" href="#fsm-for-whileif-statements">FSM for While/If Statements</a></li>
         
+            <li><a class="toctree-l4" href="#next-step">Next Step</a></li>
+        
         </ul>
     
 
@@ -129,6 +131,7 @@
 <p class="admonition-title">Finite State Machine</p>
 <p>A finite state machine (sometimes called a finite state automaton) is a computation model that can be implemented with hardware or software and can be used to simulate sequential logic and some computer programs. Finite state automata generate regular languages. Finite state machines can be used to model problems in many fields including mathematics, artificial intelligence, games, and linguistics.</p>
 </div>
+<p>Although the commonly used recursive approach in parsing is able to maintain an O(N) time complexity handling simple logic like maths equations, its complexity grows quickly as the objective complicates to parsing normal Python expressions. At the same time, due to the limited number of states FSM has, the combination of higher level tree traversal and finite state machine could always maintain the time complexity at O(N). Furthermore, finite state machine also has a higher readability as it is able to print out every transition of states during the parsing process.</p>
 <p>Pythumbnail generates finite state machine maps for three different types of function group: function, for loop and while/if statement.</p>
 <h2 id="fsm-for-functions">FSM for Functions</h2>
 <p><img alt="Finite State Machine for DEF" src="../img/Def_FSM.png" /></p>
@@ -158,6 +161,8 @@
 <em>S_STRING</em>: &nbsp;&nbsp;inputing information into a string (spaces do not cause state changes)<br>
 <em>S_END_RULE</em>: &nbsp;&nbsp;end of sentences</p>
 <p>While/If statement has six different states. The sequential logic starts with defining the name of variables (S_NAME). The difference with for loop here is while/if could end directly with S_NAME when the variable is a boolean. Individual variables are separated by commas (S_COMMA). "</>/=/in/not/and/or..." marks the logical operator (S_LOGIC) followed by another variable(S_PARA). The sequential logic ends with a colon (S_END_RULE). Note that an additional string stage (S_STRING) is defined here to avoid triggering the mis-transition from S_NAME to S_LOGIC with spaces in a string.</p>
+<h2 id="next-step">Next Step</h2>
+<p>Given that Finite State Machine is able to parse python language down to key components like function name, logical operators and parameters. It should also be able to reverse engineer it and create python codes from the key information feeds to the algorithm. That would greatly simply the process of python programming where a higher level processor could be built on top of the python compiler.</p>
               
             </div>
           </div>
