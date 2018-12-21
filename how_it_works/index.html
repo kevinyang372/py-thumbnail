@@ -65,6 +65,8 @@
     
         <ul>
         
+            <li><a class="toctree-l4" href="#time-complexity-analysis">Time Complexity Analysis</a></li>
+        
             <li><a class="toctree-l4" href="#fsm-for-functions">FSM for Functions</a></li>
         
             <li><a class="toctree-l4" href="#fsm-for-for-loops">FSM for For Loops</a></li>
@@ -131,8 +133,32 @@
 <p class="admonition-title">Finite State Machine</p>
 <p>A finite state machine (sometimes called a finite state automaton) is a computation model that can be implemented with hardware or software and can be used to simulate sequential logic and some computer programs. Finite state automata generate regular languages. Finite state machines can be used to model problems in many fields including mathematics, artificial intelligence, games, and linguistics.</p>
 </div>
-<p>Although the commonly used recursive approach in parsing is able to maintain an O(N) time complexity handling simple logic like maths equations, its complexity grows quickly as the objective complicates to parsing normal Python expressions. At the same time, due to the limited number of states FSM has, the combination of higher level tree traversal and finite state machine could always maintain the time complexity at O(N). Furthermore, finite state machine also has a higher readability as it is able to print out every transition of states during the parsing process.</p>
 <p>Pythumbnail generates finite state machine maps for three different types of function group: function, for loop and while/if statement.</p>
+<h2 id="time-complexity-analysis">Time Complexity Analysis</h2>
+<p>Although the commonly used recursive approach in parsing is able to maintain an O(N) time complexity handling simple logic like maths equations, its complexity grows quickly as the objective complicates when parsing normal Python expressions. At the same time, however, with the limited number of states in FSM, a combination of higher level tree traversal and finite state machine could always maintain the time complexity at O(N).</p>
+<p>The time complexity of the algorithm is tested using the code below:</p>
+<pre><code class="python">    def write_line(directory,i):
+        with open (directory, &quot;w&quot;) as myfile:
+            for i in range(100*i):
+                myfile.write('def yes(par1, par2):\n')
+                myfile.write('\n')
+            myfile.close()
+
+    times = []
+    for i in range(100):
+        write_line(directory, i)
+        start_time = time.time()
+        pythumbnail.read_file(directory, silent=False)
+        times.append(time.time() - start_time)
+
+    plt.plot(range(0,10000,100),times)
+    plt.xlabel(&quot;number of lines in the code&quot;)
+    plt.ylabel(&quot;time&quot;)
+    plt.show()
+</code></pre>
+
+<p><img alt="Time Complexity" src="../img/Time_FSM.png" /></p>
+<p>As shown in the graph, although there are small fluctuations, the overall time complexity is increasing in a linear manner.</p>
 <h2 id="fsm-for-functions">FSM for Functions</h2>
 <p><img alt="Finite State Machine for DEF" src="../img/Def_FSM.png" /></p>
 <p><strong> FSM States: </strong></p>
